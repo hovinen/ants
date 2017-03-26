@@ -1,0 +1,20 @@
+<div class="portal"
+    (click)="click($event)">
+  <div *ngFor="let ant of ants"
+      class="ant"
+      [style.top]="ant.top"
+      [style.left]="ant.left"
+      [style.width]="ant.width"
+      [style.height]="ant.height">
+  </div>
+  <div *ngFor="let foodSource of foodSources"
+      class="food-source"
+      [style.top]="foodSource.top"
+      [style.left]="foodSource.left"
+      [style.width]="foodSource.width"
+      [style.height]="foodSource.height">
+  </div>
+</div>
+
+<button (click)="start()">Start</button><br>
+<button (click)="stop()">Stop</button>

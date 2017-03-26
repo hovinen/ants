@@ -1,0 +1,19 @@
+.portal {
+	position: absolute;
+	margin: 50px;
+	width: 1000px;
+	height: 800px;
+	border-style: solid;
+	overflow: hidden;
+}
+
+.ant {
+	position: absolute;
+	background-color: black;
+}
+
+.food-source {
+	position: absolute;
+	background-color: brown;
+	opacity: 0.5;
+}
