@@ -7,40 +7,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorldComponent implements OnInit {
   private portal: Portal = new Portal();
-  private world: World = new World(500);
-  private tickIntervalInMs = 50;
-  private started = true;
+  private world: World = new World(2000);
+  private tickIntervalInMs = 10;
+  private timerId;
   private ants_ = this.world.ants.map(ant => new ItemViewModel(this.portal, ant));
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   start() {
-    this.started = true;
-    this.scheduleTick();
+    this.timerId = setInterval(() => this.tick(), this.tickIntervalInMs);
   }
 
   stop() {
-    this.started = false;
+    clearInterval(this.timerId);
   }
 
   click(event) {
     const target = event.target || event.srcElement || event.currentTarget;
     const position =
-        this.portal.toPosition(event.clientX - target.offsetLeft, event.clientY - target.offsetTop);
+      this.portal.toPosition(event.clientX - target.offsetLeft, event.clientY - target.offsetTop);
     this.world.addFoodSource(new FoodSource(position, 200));
   }
 
   tick() {
-    if (this.started) {
-      this.world.iterate();
-      this.scheduleTick();
-    }
+    this.world.iterate();
   }
 
   scheduleTick() {
-    setTimeout(() => this.tick(), this.tickIntervalInMs);
   }
 
   get ants(): Array<ItemViewModel> {
@@ -79,8 +74,8 @@ class ItemViewModel {
 }
 
 class Portal {
-  private scaleX: number = 5;
-  private scaleY: number = 5;
+  private scaleX: number = 2;
+  private scaleY: number = 2;
   private deltaX: number = 500;
   private deltaY: number = 400;
 
@@ -102,7 +97,7 @@ class Portal {
 
   toPosition(x: number, y: number): Position {
     return new Position(
-        Math.floor((x - this.deltaX) / this.scaleX), Math.floor((y - this.deltaY) / this.scaleY));
+      Math.floor((x - this.deltaX) / this.scaleX), Math.floor((y - this.deltaY) / this.scaleY));
   }
 }
 
